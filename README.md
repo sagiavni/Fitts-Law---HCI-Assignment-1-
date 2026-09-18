@@ -9,8 +9,8 @@ AI-assisted Fitts' Law experiment simulating a driver reaching a center-console 
 
 - `index.html` — the experiment itself (single-file, zero external dependencies)
 - `report.html` — Scenario, Innovation, Application, empirical analysis, and the custom Fitts' Law formula
-- `fitts_law_data.csv` — raw trial data (27 trials)
-- `scatter-plot.png` — Movement Time vs. Index of Difficulty, with regression line
+- `fitts_law_data.csv` - raw trial data (27 trials)
+- `scatter-plot.png` - Movement Time vs. Index of Difficulty, with regression line
 
 ## Summary
 
