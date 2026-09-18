@@ -13,4 +13,4 @@ Summary
 
 27 trials across a 3×3 amplitude/width matrix (250/500/750 px × 40/80/140 px), timed with performance.now(). A subset of trials included a concurrent road-hazard response task to model the divided attention of real driving. Fitted equation (n = 27): MT = 595.9 + 97.1 · ID, R² = 0.139 — full analysis, including why the fit improves to R² = 0.468 once hazard trials are isolated, is in the report.
 
-— Sagi Avni · Human-Computer Interaction
+  Sagi Avni · Human-Computer Interaction
