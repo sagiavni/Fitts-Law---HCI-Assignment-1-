@@ -2,8 +2,8 @@ Fitts' Law — HCI Assignment
 
 AI-assisted Fitts' Law experiment simulating a driver reaching a center-console touchscreen, with a divided-attention hazard-light task added as the design's Innovation.
 
-Live app: https://sagiavni.github.io/Fitts-Law---HCI-Assignment-1-/ 
-Full report: https://sagiavni.github.io/Fitts-Law---HCI-Assignment-1-/report.html
+-Live app: https://sagiavni.github.io/Fitts-Law---HCI-Assignment-1-/ 
+-Full report: https://sagiavni.github.io/Fitts-Law---HCI-Assignment-1-/report.html
 
 Contents
 index.html — the experiment itself (single-file, zero external dependencies)
