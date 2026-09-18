@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report — Console Reach: A Fitts' Law Study</title>
+<style>
+  :root{
+    --bg: #0c1015; --panel: #12181f; --panel-2: #171f28; --line: #232c37;
+    --text: #e7edf3; --muted: #8a97a6; --amber: #f2a541; --teal: #34c9be; --red: #e2645a;
+    --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family:var(--sans); }
+  body{ min-height:100vh; display:flex; flex-direction:column; align-items:center; padding: 28px 16px 60px; }
+  .app{ width:100%; max-width: 780px; }
+
+  header.top{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding-bottom:18px; margin-bottom:26px; border-bottom:1px solid var(--line); }
+  header.top h1{ font-size: 19px; font-weight:600; margin:0; }
+  header.top h1 span{ color: var(--amber); }
+  header.top a{ font-family: var(--mono); font-size: 12px; color: var(--teal); text-decoration:none; }
+  header.top a:hover{ text-decoration:underline; }
+
+  h2{ font-size: 20px; font-weight:700; margin: 40px 0 10px; }
+  h2:first-of-type{ margin-top:0; }
+  p{ color: var(--text); line-height:1.7; font-size:15px; }
+
+  .media-frame{ background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin: 12px 0; }
+  video, img{ width:100%; border-radius:6px; display:block; background:#000; }
+  .caption{ font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top:8px; }
+
+  .equation{ font-family: var(--mono); font-size: 16px; background: var(--panel-2); border: 1px solid var(--line); border-left: 3px solid var(--teal); border-radius: 8px; padding: 16px 18px; margin: 14px 0; }
+  .equation .sub{ color: var(--muted); font-size:12.5px; margin-top:8px; font-family: var(--sans); }
+
+  .stats-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+  .stat{ background: var(--panel-2); border:1px solid var(--line); border-radius: 8px; padding: 14px; }
+  .stat .label{ font-size: 11px; color: var(--muted); margin-bottom: 6px; font-family: var(--mono);}
+  .stat .value{ font-family: var(--mono); font-size: 19px; font-weight:700; color: var(--teal); }
+
+  a.link{ color: var(--teal); }
+
+  table{ width:100%; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; margin: 14px 0; }
+  table th, table td{ padding: 6px 10px; text-align:left; border-bottom: 1px solid var(--line); }
+  table th{ color: var(--muted); font-weight:600; font-size:11px; }
+
+  footer{ margin-top: 50px; text-align:center; color: var(--muted); font-size: 12px; font-family: var(--mono); border-top:1px solid var(--line); padding-top:18px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <h1>Console<span>Reach</span> — Study Report</h1>
+    <a href="index.html">↳ Try the live experiment</a>
+  </header>
+
+  <h2>Scenario</h2>
+  <p>
+    A driver keeps their hand resting on the steering wheel and their eyes on the road. Periodically
+    they must reach to a center-console touchscreen to tap a climate or media control — the amber
+    Home button represents the wheel-rest position, the teal Target represents the console button.
+    In-car touchscreens replaced many physical buttons over the last decade, but the tradeoffs of
+    button size and reach distance for a driver who cannot look down are not always obvious. This
+    experiment measures that tradeoff directly using Fitts' Law: by systematically varying target
+    distance (A) and width (W) and measuring Movement Time (MT), the experiment quantifies how much
+    harder a small, far button is to hit than a large, close one — and where the safety cost of
+    shrinking console buttons starts to add up.
+  </p>
+
+  <h2>Innovation</h2>
+  <p>
+    A plain point-and-click test misses the fact that driving is a divided-attention task, not a
+    clean pointing task. So on a random subset of trials (8 of 27 in this session), a road-hazard
+    light flashed at the top of the screen mid-reach, requiring a Spacebar tap within 700&nbsp;ms
+    without abandoning the reach — modeling a driver who also has to react to traffic while touching
+    the console. This was chosen because it's the single biggest difference between a lab pointing
+    task and a real driving task, and, as the results below show, it turned out to matter a great deal.
+  </p>
+
+  <h2>Application</h2>
+  <p>
+    The experiment is a single-file, zero-dependency web app (<code>index.html</code> in this repo).
+    It varied target Amplitude (250 / 500 / 750&nbsp;px) and Width (40 / 80 / 140&nbsp;px) across all
+    9 combinations, 3 repetitions each (27 trials, randomized order), timed each reach with
+    <code>performance.now()</code>, and exported the raw data as CSV.
+  </p>
+
+  <h2>Session Recording</h2>
+  <div class="media-frame">
+    <video controls>
+      <source src="session-recording.webm" type="video/webm">
+    </video>
+    <div class="caption">session-recording.webm</div>
+  </div>
+
+  <h2>Empirical Results</h2>
+  <div class="media-frame">
+    <img src="scatter-plot.png" alt="Scatter plot of Movement Time vs Index of Difficulty, hazard trials marked separately, with regression trendline">
+    <div class="caption">scatter-plot.png — Movement Time vs. Index of Difficulty. Red triangles mark trials with a concurrent hazard-light response.</div>
+  </div>
+  <p>Raw trial data: <a class="link" href="fitts_law_data.csv">fitts_law_data.csv</a></p>
+
+  <h2>Custom Formula</h2>
+  <p>Fitting a line to Movement Time against Index of Difficulty across all 27 trials gives:</p>
+  <div class="equation">
+    MT = 595.9 + 97.1 · ID
+    <div class="sub">a = 595.9 ms &nbsp;·&nbsp; b = 97.1 ms/bit &nbsp;·&nbsp; R² = 0.139 &nbsp;·&nbsp; n = 27</div>
+  </div>
+
+  <p>
+    The slope is positive as Fitts' Law predicts — harder targets took longer to hit — but the fit is
+    weak (R² = 0.139) compared to typical clean single-task Fitts studies, which usually land above
+    0.9. The reason becomes clear when the 8 hazard-light trials are separated from the 19 standard
+    trials:
+  </p>
+
+  <table>
+    <tr><th>Subset</th><th>n</th><th>Mean MT</th><th>Fitted equation</th><th>R²</th></tr>
+    <tr><td>Standard trials</td><td>19</td><td>783 ms</td><td>MT = 464.1 + 113.0·ID</td><td>0.468</td></tr>
+    <tr><td>Hazard trials</td><td>8</td><td>1080 ms</td><td>—</td><td>0.022</td></tr>
+  </table>
+
+  <p>
+    Trials with a concurrent hazard response were on average <b>38% slower</b> (1080&nbsp;ms vs.
+    783&nbsp;ms) than standard trials at the same conditions, and that penalty was fairly flat across
+    ID rather than scaling with it — which is exactly what a fixed dual-task cost added on top of a
+    pointing movement should look like. Isolating the standard trials alone raises R² to 0.468, closer
+    to what a single-task Fitts test typically produces, which suggests the weak overall fit is coming
+    from the hazard-task noise rather than from a fundamentally unreliable relationship between
+    amplitude/width and movement time. Subjectively, I also noticed myself moving a bit more
+    cautiously through the session in general — not just on hazard trials — likely anticipating a
+    possible hazard flash and holding back slightly rather than committing to a fully ballistic reach,
+    which would add variance beyond the dual-task trials themselves and is a plausible further
+    contributor to the modest overall R².
+  </p>
+
+  <p>
+    The hazard response itself was handled well: 7 of 8 hazard lights were caught within the
+    700&nbsp;ms window (87.5% response rate), with a single miss at trial 16. That trial (A=500,
+    W=80) still logged one of the faster movement times in the session (680&nbsp;ms) — consistent
+    with the light being missed because attention stayed on the reach rather than because the reach
+    itself was rushed.
+  </p>
+
+  <p>
+    Taken together, the data support the scenario's core premise: Fitts' Law still governs the
+    underlying pointing movement, but a concurrent attention demand — exactly the kind a driver faces
+    — adds a time cost on top of it that a distance/width model alone does not capture, and can
+    itself come at the expense of missing the very thing (the hazard) the driver was supposed to
+    notice.
+  </p>
+
+  <footer>Sagi Avni · Human-Computer Interaction</footer>
+</div>
+</body>
+</html>
